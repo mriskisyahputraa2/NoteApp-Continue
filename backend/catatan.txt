@@ -1,0 +1,9 @@
+yang akan diinstall pada project backend kali ini adalah:
+1. npm express : untuk membangun aplikasi web dan API dengan cepat dan mudah ini disisi backend
+2. npm mysql2 : untuk pemrosesan asinkron dengan promises atau async/await. ini lebih cepat dan efesien dibandingkan driver MysQL sebelumnya(mysql)
+3. npm sequelize : adalah ORM(Object-Relational-Mapping) untuk mendukung berbagi ke database dan memudahkan manipulasi data melalui model
+4. npm argon2 : untuk hashing password supaya lebih aman
+5. cors : adalah middleware untuk memudahkan pengaturan Cross-Origin Resource Sharing(CORS). memungkinkan resource (seperti font atau API) diakses dari domain berbeda dari domain asal.
+6. dotenv : untuk memuat variabel lingkungan dari file .env ke dalam process.env. Ini memudahkan pengaturan konfigurasi aplikasi tanpa perlu mengubah kode sumber.
+7. express-session :adalah middleware untuk Express yang digunakan untuk mengelola sesi pengguna di aplikasi web. Ini memudahkan penyimpanan data sesi pada server dan memungkinkan pengguna untuk tetap login antara request.
+8. connect-session-sequelize: digunakan untuk menyimpan sesi (session) dalam database yang menggunakan Sequelize sebagai ORM (Object-Relational Mapping)

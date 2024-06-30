@@ -1,0 +1,107 @@
+// Create a user
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name": "riski user",
+    "email": "riskiUser@gmail.com",
+    "password": "user",
+    "confPassword": "user",
+    "role": "user"
+}
+
+###
+// Get All Users
+GET http://localhost:5000/users/
+
+###
+// Get Single User
+GET http://localhost:5000/users/d79f2864-f67c-49d4-8bc6-dcfe20bacd0d
+
+### update a user 
+PATCH  http://localhost:5000/users/3f4a6dec-9bf0-4ed8-9af6-52850992272d
+Content-Type: application/json
+
+{
+    "name": "riski admin",
+    "email": "riskiAdmin@gmail.com",
+    "password": "",
+    "confPassword": "",
+    "role": "admin"
+}
+
+### delete a user 
+DELETE http://localhost:5000/users/d9c0e567-62bf-452a-a49c-bf9282367a4a
+
+### login a admin 
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "riskiAdmin@gmail.com",
+    "password": "admin"
+}
+
+### login a user
+POST http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email": "riskiUser@gmail.com",
+    "password": "user"
+}
+
+
+### get me
+GET http://localhost:5000/me
+
+### logout 
+DELETE http://localhost:5000/logout
+
+### Get All Products
+GET http://localhost:5000/products/
+
+
+### Get Single Products
+GET http://localhost:5000/products/9cd73153-5021-47a0-bff5-6ebe8985d2cc
+
+
+### POST Data Product
+POST http://localhost:5000/products
+Content-Type: application/json
+
+{
+    "name": "Product 1 #user",
+    "price": "32342"
+}
+
+### Update a Product 
+PATCH  http://localhost:5000/products/cb0e57ca-acd5-45a0-924b-5657832054b8
+Content-Type: application/json
+
+{
+   "name": "Product 3 #User updated",
+  "price": 112
+}
+
+### Delete a Product 
+DELETE  http://localhost:5000/products/47ef186f-8d64-40e8-8604-5806dad41228
+
+
+### Get All Books
+GET http://localhost:5000/books
+
+
+### Get Single Books
+GET http://localhost:5000/Books/9cd73153-5021-47a0-bff5-6ebe8985d2cc
+
+
+### POST Data Books
+POST http://localhost:5000/books
+Content-Type: application/json
+
+{
+    "name": "buku 2",
+    "genre": "horor",
+    "deadline": "2024-07-7878"
+}
