@@ -1,0 +1,39 @@
+1. install react dan redux
+    Redux adalah sebuah library untuk mengelola state global aplikasi, yang sering digunakan dalam aplikasi JavaScript yang kompleks untuk memastikan bahwa semua komponen memiliki akses ke state yang konsisten dan dapat diprediksi
+
+# Konsep Utama Redux
+    - Store: Tempat penyimpanan state aplikasi. Hanya ada satu store untuk setiap aplikasi Redux.
+    
+    - Action: Objek yang mengirimkan data dari aplikasi Anda ke store Redux. Action biasanya memiliki properti type dan payload data.
+    
+    - Reducer: Fungsi yang menentukan bagaimana state 
+    aplikasi berubah sebagai respons terhadap action yang dikirimkan ke store.
+    
+    - Dispatch: Metode untuk mengirimkan action ke store.
+    
+    - Selector: Fungsi untuk memilih dan mendapatkan data dari store.
+
+2. npm i react-router: digunakan untuk routing di aplikasi react
+
+3. npm i axios: digunakan untuk melakukan HTTP request, memungkinkan aplikasi untuk berkomunikasi dengan server, mengambil data dari API, atau mengirim data ke server
+
+4. npm i bulma: adalah CSS framework berbasis flexbox yg menyediakan  berbagai komponen dan grid system yang responsif. Ini memungkinkan pengembangan antarmuka pengguna yang elegan dan responsif dengan cepat.
+
+5. npm i react-icons: Untuk menggunakan berbagai ikon dari koleksi ikon populer dalam aplikasi React.
+
+# Penjelasan dari file login.jsx
+    1.  import React, { useState, useEffect } from "react";
+        - React: Ini adalah pustaka utama yang digunakan untuk membangun antarmuka pengguna. Dengan mengimpor React, Anda bisa menggunakan JSX dan komponen React.
+        - useState: Hook yang memungkinkan Anda untuk menambahkan state lokal ke komponen fungsional. State digunakan untuk menyimpan data yang dapat berubah selama siklus hidup komponen.
+        - useEffect: Hook yang memungkinkan Anda untuk menjalankan efek samping dalam komponen fungsional, seperti pengambilan data, pengaturan langganan, atau pembaruan DOM.
+    
+    2. import { useDispatch, useSelector } from "react-redux";
+        - useDispatch: Hook yang digunakan untuk mengirimkan aksi ke Redux store. Dengan ini, Anda bisa memanggil aksi-aksi Redux untuk memperbarui state global.
+        - useSelector: Hook yang digunakan untuk memilih (membaca) data dari Redux store. Ini memungkinkan komponen Anda untuk mengakses state global yang disimpan di Redux.
+    
+    3. import { useNavigate } from "react-router-dom";
+        - useNavigate: Hook dari react-router-dom yang digunakan untuk programmatically menavigasi (berpindah halaman) dalam aplikasi React. Ini menggantikan penggunaan history pada versi React Router sebelumnya.
+    
+    4. import { LoginUser, reset } from "../features/authSlice.js";
+        - LoginUser: Ini adalah thunk asinkron yang didefinisikan dalam authSlice.js untuk melakukan login pengguna. Thunk ini mengirimkan permintaan login ke server dan memperbarui state otentikasi berdasarkan responsnya.
+        - reset: Ini adalah aksi yang didefinisikan dalam authSlice.js untuk mereset state otentikasi ke state awalnya. Biasanya digunakan setelah logout atau untuk membersihkan state setelah operasi tertentu.
