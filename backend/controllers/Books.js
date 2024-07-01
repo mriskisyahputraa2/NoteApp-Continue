@@ -1,6 +1,6 @@
 import Book from "../models/Books.js";
 import User from "../models/UsersModel.js";
-import { Op } from "sequelize"; // import operator from Sequelize
+import { Op, where } from "sequelize"; // import operator from Sequelize
 
 export const getBooks = async (req, res) => {
   try {
@@ -92,6 +92,82 @@ export const createBooks = async (req, res) => {
   }
 };
 
-export const updateBooks = (req, res) => {};
+export const updateBooks = async (req, res) => {
+  try {
+    const book = await Book.findOne({
+      where: {
+        uuid: req.params.id,
+      },
+    });
+    // jika data buku tidak ditemukan
+    if (!book) return res.status(404).json({ msg: "Data tidak ditemukan" });
 
-export const deleteBooks = (req, res) => {};
+    const { name, genre, deadline } = req.body;
+
+    // jika role pengguna adalah admin
+    if (req.role === "admin") {
+      await Book.update(
+        { name, genre, deadline },
+        {
+          where: {
+            id: book.id,
+          },
+        }
+      );
+    } else {
+      // jika pengguna bukan lah admin
+      if (req.userId !== book.userId) {
+        return res
+          .status(403)
+          .json({ msg: "Akses terlarang, anda bukan admin" });
+      }
+
+      await Book.update(
+        { name, genre, deadline },
+        {
+          where: {
+            [Op.and]: [{ id: book.id }, { userId: req.userid }],
+          },
+        }
+      );
+    }
+    res.status(200).json({ msg: "Book updated successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+export const deleteBooks = async (req, res) => {
+  try {
+    const book = await Book.findOne({
+      where: {
+        uuid: req.params.id,
+      },
+    });
+
+    if (!book) return res.status(404).json({ msg: "Data tidak ditemukan" });
+
+    if (req.role === "admin") {
+      await Book.destroy({
+        where: {
+          id: book.id,
+        },
+      });
+    } else {
+      if (req.userId !== book.userId) {
+        return res
+          .status(403)
+          .json({ msg: "Akses terlarang, anda bukan admin" });
+      }
+
+      await Book.destroy({
+        where: {
+          [Op.and]: [{ id: book.id }, { userId: req.userid }],
+        },
+      });
+    }
+    res.status(200).json({ msg: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};

@@ -101,7 +101,20 @@ POST http://localhost:5000/books
 Content-Type: application/json
 
 {
-    "name": "buku 2",
-    "genre": "horor",
-    "deadline": "2024-07-7878"
+    "name": "buku 3",
+    "genre": "fantasi",
+    "deadline": "2024-07-07"
 }
+
+### Update a Books 
+PATCH  http://localhost:5000/books/85deed53-d828-47f4-92c7-b46c47a5adc5
+Content-Type: application/json
+
+{
+    "name": "buku 2 update",
+    "genre": "horor",
+    "deadline": "2024-07-08"
+}
+
+### Delete a Books 
+DELETE  http://localhost:5000/books/85deed53-d828-47f4-92c7-b46c47a5adc5
