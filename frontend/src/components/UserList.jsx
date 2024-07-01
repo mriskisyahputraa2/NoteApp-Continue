@@ -18,7 +18,12 @@ function UserList() {
 
   // func delete user by id
   const deleteUser = async (userId) => {
-    await axios.delete(`http://localhost:5000/users/${userId}`);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete user? "
+    );
+    if (confirmDelete) {
+      await axios.delete(`http://localhost:5000/users/${userId}`);
+    }
     getUsers();
   };
   return (

@@ -21,7 +21,7 @@ export const getBooks = async (req, res) => {
         where: {
           userId: req.userId,
         },
-        where: {
+        include: {
           model: User,
           attributes: ["name", "email"],
         },
@@ -44,7 +44,7 @@ export const getBooksById = async (req, res) => {
     if (!book) return res.status(404).json({ msg: "Data tidak ditemukan" });
 
     let response;
-    if (role.role === "admin") {
+    if (req.role === "admin") {
       response = await Book.findOne({
         attributes: ["uuid", "name", "genre", "deadline"],
         where: {
@@ -126,7 +126,7 @@ export const updateBooks = async (req, res) => {
         { name, genre, deadline },
         {
           where: {
-            [Op.and]: [{ id: book.id }, { userId: req.userid }],
+            [Op.and]: [{ id: book.id }, { userId: req.userId }],
           },
         }
       );
@@ -162,7 +162,7 @@ export const deleteBooks = async (req, res) => {
 
       await Book.destroy({
         where: {
-          [Op.and]: [{ id: book.id }, { userId: req.userid }],
+          [Op.and]: [{ id: book.id }, { userId: req.userId }],
         },
       });
     }

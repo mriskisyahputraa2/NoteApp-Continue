@@ -63,8 +63,7 @@ GET http://localhost:5000/products/
 
 
 ### Get Single Products
-GET http://localhost:5000/products/9cd73153-5021-47a0-bff5-6ebe8985d2cc
-
+GET http://localhost:5000/products/e528e527-95af-480d-806d-b4070cd12c56
 
 ### POST Data Product
 POST http://localhost:5000/products
@@ -93,8 +92,7 @@ GET http://localhost:5000/books
 
 
 ### Get Single Books
-GET http://localhost:5000/Books/9cd73153-5021-47a0-bff5-6ebe8985d2cc
-
+GET http://localhost:5000/Books/ec73793d-eb14-413c-ba9c-46ac0cb6636a
 
 ### POST Data Books
 POST http://localhost:5000/books
