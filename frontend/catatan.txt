@@ -21,6 +21,8 @@
 
 5. npm i react-icons: Untuk menggunakan berbagai ikon dari koleksi ikon populer dalam aplikasi React.
 
+6. npm i moment: Untuk meng-set format tanggal
+
 # Penjelasan dari file login.jsx
     1.  import React, { useState, useEffect } from "react";
         - React: Ini adalah pustaka utama yang digunakan untuk membangun antarmuka pengguna. Dengan mengimpor React, Anda bisa menggunakan JSX dan komponen React.
@@ -37,3 +39,4 @@
     4. import { LoginUser, reset } from "../features/authSlice.js";
         - LoginUser: Ini adalah thunk asinkron yang didefinisikan dalam authSlice.js untuk melakukan login pengguna. Thunk ini mengirimkan permintaan login ke server dan memperbarui state otentikasi berdasarkan responsnya.
         - reset: Ini adalah aksi yang didefinisikan dalam authSlice.js untuk mereset state otentikasi ke state awalnya. Biasanya digunakan setelah logout atau untuk membersihkan state setelah operasi tertentu.
+    

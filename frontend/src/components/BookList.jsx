@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import moment from "moment"; // import untuk format tanggal
 
 function BooksList() {
   const [books, setBooks] = useState([]);
@@ -48,7 +49,8 @@ function BooksList() {
               <td>{index + 1}</td>
               <td>{book.name}</td>
               <td>{book.genre}</td>
-              <td>{book.deadline}</td>
+              {/* Format tanggal */}
+              <td>{moment(book.deadline).format("DD-MMMM-YYYY")}</td>{" "}
               <td>{book.user.name}</td>
               <td>
                 <Link
