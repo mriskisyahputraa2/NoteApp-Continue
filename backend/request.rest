@@ -3,11 +3,11 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name": "riski user",
-    "email": "riskiUser@gmail.com",
-    "password": "user",
-    "confPassword": "user",
-    "role": "user"
+    "name": "riski admin",
+    "email": "riskiAdmin@gmail.com",
+    "password": "admin",
+    "confPassword": "admin",
+    "role": "admin"
 }
 
 ###
@@ -99,19 +99,19 @@ POST http://localhost:5000/books
 Content-Type: application/json
 
 {
-    "name": "buku 3",
+    "name": "buku 2 user",
     "genre": "fantasi",
-    "deadline": "2024-07-07"
+    "deadline": "2024-07-02"
 }
 
 ### Update a Books 
-PATCH  http://localhost:5000/books/85deed53-d828-47f4-92c7-b46c47a5adc5
+PATCH  http://localhost:5000/books/3cc0e85c-2b5b-4b73-a788-ce7717888b5e
 Content-Type: application/json
 
 {
     "name": "buku 2 update",
     "genre": "horor",
-    "deadline": "2024-07-08"
+    "deadline": "2024-06-30"
 }
 
 ### Delete a Books 

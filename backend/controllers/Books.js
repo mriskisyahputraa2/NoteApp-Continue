@@ -1,6 +1,6 @@
 import Book from "../models/Books.js";
 import User from "../models/UsersModel.js";
-import { Op, where } from "sequelize"; // import operator from Sequelize
+import { Op } from "sequelize"; // import operator from Sequelize
 
 export const getBooks = async (req, res) => {
   try {
@@ -76,17 +76,43 @@ export const getBooksById = async (req, res) => {
     res.status(500).json({ msg: error.message });
   }
 };
-
 export const createBooks = async (req, res) => {
   const { name, genre, deadline } = req.body;
+
+  // Validasi apakah semua input yang diperlukan telah diisi
+  if (!name || !genre || !deadline) {
+    return res
+      .status(400)
+      .json({ msg: "Mohon masukkan datanya terlebih dahulu" });
+  }
+
+  const deadlineDate = new Date(deadline);
+
+  // Validasi apakah deadline adalah tanggal yang valid
+  if (isNaN(deadlineDate)) {
+    return res
+      .status(400)
+      .json({ msg: "Tanggal yang kamu masukkan tidak valid" });
+  }
+
+  const maxDeadlineDate = new Date();
+  maxDeadlineDate.setDate(maxDeadlineDate.getDate() + 30);
+
+  // Validasi apakah deadline melebihi 30 hari dari hari ini
+  if (deadlineDate > maxDeadlineDate) {
+    return res.status(400).json({
+      msg: "Batas waktu tidak boleh lebih dari 30 hari dari hari ini",
+    });
+  }
+
   try {
     await Book.create({
       name: name,
       genre: genre,
-      deadline: deadline,
+      deadline: deadlineDate,
       userId: req.userId,
     });
-    res.status(200).json({ msg: "Book created successfully" });
+    res.status(200).json({ msg: "Buku berhasil ditambahkan" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -94,20 +120,40 @@ export const createBooks = async (req, res) => {
 
 export const updateBooks = async (req, res) => {
   try {
+    // Mencari buku berdasarkan UUID yang diberikan di parameter URL
     const book = await Book.findOne({
       where: {
         uuid: req.params.id,
       },
     });
-    // jika data buku tidak ditemukan
+
+    // Jika buku tidak ditemukan, kirimkan respons status 404 dengan pesan error
     if (!book) return res.status(404).json({ msg: "Data tidak ditemukan" });
 
+    // Mengambil data name, genre, dan deadline dari body request
     const { name, genre, deadline } = req.body;
+    const deadlineDate = new Date(deadline);
 
-    // jika role pengguna adalah admin
+    // Validasi jika deadline yang diberikan bukan tanggal yang valid
+    if (isNaN(deadlineDate)) {
+      return res
+        .status(400)
+        .json({ msg: "Tanggal yang kamu masukkan tidak valid" });
+    }
+
+    // Membuat objek tanggal hari ini
+    const today = new Date();
+
+    // Validasi jika deadline yang diberikan adalah tanggal yang sudah lewat
+    if (deadlineDate < today) {
+      return res
+        .status(400)
+        .json({ msg: "Tanggal yang kamu masukkan sudah lewat" });
+    }
+
     if (req.role === "admin") {
       await Book.update(
-        { name, genre, deadline },
+        { name, genre, deadline: deadlineDate },
         {
           where: {
             id: book.id,
@@ -115,7 +161,6 @@ export const updateBooks = async (req, res) => {
         }
       );
     } else {
-      // jika pengguna bukan lah admin
       if (req.userId !== book.userId) {
         return res
           .status(403)
@@ -123,7 +168,7 @@ export const updateBooks = async (req, res) => {
       }
 
       await Book.update(
-        { name, genre, deadline },
+        { name, genre, deadline: deadlineDate },
         {
           where: {
             [Op.and]: [{ id: book.id }, { userId: req.userId }],
@@ -131,7 +176,7 @@ export const updateBooks = async (req, res) => {
         }
       );
     }
-    res.status(200).json({ msg: "Book updated successfully" });
+    res.status(200).json({ msg: "Buku berhasil diupdate" });
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }
@@ -166,7 +211,37 @@ export const deleteBooks = async (req, res) => {
         },
       });
     }
-    res.status(200).json({ msg: "Product deleted successfully" });
+    res.status(200).json({ msg: "Product berhasil dihapus" });
+  } catch (error) {
+    res.status(500).json({ msg: error.message });
+  }
+};
+
+export const extendDeadline = async (req, res) => {
+  const { bookId, newDeadline } = req.body;
+
+  if (req.role !== "admin") {
+    return res.status(403).json({ msg: "Akses dilarang: Hanya Admin" });
+  }
+
+  const newDeadlineDate = new Date(newDeadline);
+
+  if (isNaN(newDeadlineDate)) {
+    return res
+      .status(400)
+      .json({ msg: "Tanggal yang kamu masukkan tidak valid" });
+  }
+
+  try {
+    const book = await Book.findByPk(bookId);
+    if (!book) {
+      return res.status(404).json({ msg: "Buku tidak ditemukan" });
+    }
+
+    book.deadline = newDeadlineDate;
+    await book.save();
+
+    res.status(200).json(book);
   } catch (error) {
     res.status(500).json({ msg: error.message });
   }

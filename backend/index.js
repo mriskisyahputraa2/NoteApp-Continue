@@ -55,7 +55,7 @@ app.use(BookRoute);
 app.use(AuthRoute);
 
 // Sinkronisasi database session
-store.sync();
+// store.sync();
 
 // Menjalankan server pada port yang ditentukan dalam variabel lingkungan
 app.listen(process.env.APP_PORT, () => {
