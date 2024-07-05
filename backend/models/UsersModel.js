@@ -51,6 +51,10 @@ const User = db.define(
         notEmpty: true,
       },
     },
+    // kolom refreshToken
+    refreshToken: {
+      type: DataTypes.TEXT,
+    },
   },
   {
     freezeTableName: true, // tidak boleh mengubah nama tabel menjadi bentuk jamak. tabel harus tetap 'users' dan tidak diubah menjadi 'userses'
