@@ -7,7 +7,7 @@ import SequelizeStore from "connect-session-sequelize";
 import UserRoute from "./routes/UserRoute.js"; // Pastikan path ini benar
 import AuthRoute from "./routes/AuthRoute.js";
 import ProductRoute from "./routes/ProductRoute.js"; // Pastikan path ini benar
-import BookRoute from "./routes/Books.js";
+import BookRoute from "./routes/BookRoute.js";
 
 dotenv.config(); // Mengizinkan penggunaan variabel lingkungan dari file .env
 

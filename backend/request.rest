@@ -3,7 +3,7 @@ POST http://localhost:5000/users
 Content-Type: application/json
 
 {
-    "name": "riski admin",
+    "name": "Muhammad Rizki Syahputra",
     "email": "riskiAdmin@gmail.com",
     "password": "admin",
     "confPassword": "admin",
